@@ -8,29 +8,37 @@ public class Caeser {
 	public static void main(String[] args) {
 		
 		// Declaring data needed at top... this is good housekeeping!
-		char message, encryptedMessage = ' ';
-		int shift; //how many numbers to shift by 
+		String message, encryptedMessage = "";
+		int shift = 0; //how many numbers to shift by 
+		int count = 0; //lcv
 		
 		// Get info needed from the user
 		Scanner keyboard = new Scanner(System.in);
-		System.out.print("Enter lowercase character to encrypt: ");
-		message = keyboard.next().toLowerCase().charAt(0); // there is no getChar() method... so we improvise!
-		System.out.println("You entered '" + message + "' which is " + (int)message + " in ASCII");
+		System.out.print("Enter message to encrypt: ");
+		message = keyboard.nextLine().toLowerCase(); // there is no getChar() method... so we improvise!
+		System.out.println("You entered '" + message);
 		
-		System.out.print("Enter shift number: ");
-		shift = keyboard.nextInt();
+		while(!(shift <= 25 && shift >= -25 && shift != 0)){
+			System.out.print("Enter shift number: ");
+			shift = keyboard.nextInt();
+		}
 		
-		// encrypt the character by applying the shift
-		if (message + shift > 122)
-			encryptedMessage = (char)(message + shift - 26); //loop back to the beginning
-		else if(message + shift < 97)
-			encryptedMessage = (char)(message + shift + 26); //loop back to the end
-		else
-			encryptedMessage = (char)(message + shift); //no looping needed
+		while(count < message.length()){
+			char letter = message.charAt(count);
+			// encrypt the character by applying the shift
+			if(letter != ' '){
+			if (letter + shift > 122)
+				encryptedMessage += (char)(letter + shift - 26); //loop back to the beginning
+			else if(letter + shift < 97)
+				encryptedMessage += (char)(letter + shift + 26); //loop back to the end
+			else
+				encryptedMessage += (char)(letter + shift); //no looping needed
+			}
 		
+			count++;
+		}
 		System.out.println("Your encrypted message is: " + encryptedMessage);
 		keyboard.close();
-		
+				
 	}
-
 }
